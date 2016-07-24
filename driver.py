@@ -1,8 +1,24 @@
 import numpy as np
 import tensorflow as tf
 from tensorflow.models.rnn import rnn, rnn_cell
+from BiRNN import BiRNN
 
 learn_rate = 0.001
 training_iterations = 10000
 log_frequency = 100
 
+n_hidden = 64
+n_classes = 36
+
+x = tf.placeholder("float", [None, n_steps, n_input])
+y = tf.placeholder("float", [None, n_classes])
+
+weights = {
+    'out': tf.Variable(tf.random_normal([2*n_hidden, n_classes]))
+}
+biases = {
+    'out': tf.Variable(tf.random_normal([n_classes]))
+}
+
+pred = BiRNN(x, weights, biases)
+print pred
