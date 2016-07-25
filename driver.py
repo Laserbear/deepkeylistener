@@ -2,6 +2,7 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.models.rnn import rnn, rnn_cell
 from BiRNN import BiRNN
+from data_handler import pull_data_chunk
 
 learn_rate = 0.001
 training_iterations = 10000
@@ -31,3 +32,8 @@ accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 
 init = tf.initialize_all_variables()
 
+with tf.Session() as sess:
+	sess.run(init)
+	step = 1
+	while step < training_iterations:
+		xtrain, ytrain = pull_data_chunk()
