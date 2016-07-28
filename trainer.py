@@ -37,3 +37,10 @@ with tf.Session() as sess:
 	step = 1
 	while step < training_iterations:
 		xtrain, ytrain = pull_data_chunk()
+		sess.run(optimizer, feed_dict={x: xtrain, y: ytrain})
+		if step % log_frequency == 0:
+			acc = sess.run(accuracy, feed_dict={x: xtrain, y: ytrain})
+			loss = sess.run(cost, feed_dict={x: xtrain, y: ytrain})
+			print "Iteration: ", step, "\Accuracy: ", acc, "\Loss: ", loss
+		step += 1
+
