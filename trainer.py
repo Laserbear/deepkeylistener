@@ -5,13 +5,14 @@ from BiRNN import BiRNN
 from data_handler import pull_data_chunk
 
 learn_rate = 0.001
-training_iterations = 10000
+training_iterations = 100000
 log_frequency = 100
+chunk_size = 30 #average sentence in characters, I guess
 
 n_hidden = 64
 n_classes = 36
 
-x = tf.placeholder("float", [None, n_steps, n_input])
+x = tf.placeholder("float", [None, 1, n_input])
 y = tf.placeholder("float", [None, n_classes])
 
 weights = {
@@ -37,6 +38,7 @@ with tf.Session() as sess:
 	step = 1
 	while step < training_iterations:
 		xtrain, ytrain = pull_data_chunk()
+		batch_x = batch_x.reshape((chunk_size, n_steps, n_input))
 		sess.run(optimizer, feed_dict={x: xtrain, y: ytrain})
 		if step % log_frequency == 0:
 			acc = sess.run(accuracy, feed_dict={x: xtrain, y: ytrain})
