@@ -7,7 +7,7 @@ from data_handler import pull_data_chunk
 learn_rate = 0.001
 training_iterations = 100000
 log_frequency = 100
-chunk_size = 30 #average sentence in characters, I guess
+chunk_size = 30 #length of average sentence in characters, I guess
 
 n_hidden = 64
 n_classes = 36
